@@ -118,86 +118,89 @@ components:
       scheme: bearer
       bearerFormat: JWT
 
-  schemas:
+security:
+  - bearerAuth: []
 
-    LoginRequest:
-      type: object
-      required:
-        - username
-        - password
-      properties:
-        username:
-          type: string
-          example: admin
-        password:
-          type: string
-          format: password
-          example: admin123
+schemas:
 
-    JwtResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI...
+  LoginRequest:
+    type: object
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+        example: admin
+      password:
+        type: string
+        format: password
+        example: admin123
 
-    User:
-      type: object
-      required:
-        - id
-        - username
-        - password
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        username:
-          type: string
-          example: admin
-        password:
-          type: string
-          format: password
-          example: admin123
+  JwtResponse:
+    type: object
+    properties:
+      token:
+        type: string
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI...
 
-    TaskStatus:
-      type: object
-      required:
-        - id
-        - nombre
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        nombre:
-          type: string
-          example: Pendiente
+  User:
+    type: object
+    required:
+      - id
+      - username
+      - password
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+      username:
+        type: string
+        example: admin
+      password:
+        type: string
+        format: password
+        example: admin123
 
-    Task:
-      type: object
-      required:
-        - id
-        - titulo
-        - descripcion
-        - estado
-        - usuarioId
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        titulo:
-          type: string
-          example: Implementar login
-        descripcion:
-          type: string
-          example: Agregar autenticación con JWT
-        estado:
-          $ref: '#/components/schemas/TaskStatus'
-        userId:
-          type: integer
-          format: int64
-          example: 1
+  TaskStatus:
+    type: object
+    required:
+      - id
+      - nombre
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+      nombre:
+        type: string
+        example: Pendiente
+
+  Task:
+    type: object
+    required:
+      - id
+      - titulo
+      - descripcion
+      - estado
+      - usuarioId
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+      titulo:
+        type: string
+        example: Implementar login
+      descripcion:
+        type: string
+        example: Agregar autenticación con JWT
+      estado:
+        $ref: '#/components/schemas/TaskStatus'
+      userId:
+        type: integer
+        format: int64
+        example: 1
 
 

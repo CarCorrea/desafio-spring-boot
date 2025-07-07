@@ -15,6 +15,6 @@ public class TaskStatusEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name= "descripcion", nullable = false)
     private String descripcion;
 }

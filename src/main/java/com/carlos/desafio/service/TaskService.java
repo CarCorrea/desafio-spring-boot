@@ -6,6 +6,7 @@ import com.carlos.desafio.entity.UserEntity;
 import com.carlos.desafio.repository.TaskRepository;
 import com.carlos.desafio.repository.TaskStatusRepository;
 import com.carlos.desafio.repository.UserRepository;
+import com.nuevospa.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -32,17 +33,17 @@ public class TaskService {
     }
 
     @Transactional
-    public TaskEntity createTask(TaskEntity task){
+    public void createTask(TaskEntity task){
         UserEntity currentUser = getCurrentUser();
         task.setUsuario(currentUser);
 
         if(task.getEstado() == null){
-            TaskStatusEntity defaultStatus = taskStatusRepository.findByDescripcion("PENDIENTE")
+            TaskStatusEntity defaultStatus = taskStatusRepository.findByDescripcion("Pendiente")
                     .orElseThrow(() -> new RuntimeException("Estado no encontrado"));
             task.setEstado(defaultStatus);
         }
 
-        return taskRepository.save(task);
+        taskRepository.save(task);
     }
 
     public TaskEntity getTaskById(Long id){
@@ -53,19 +54,20 @@ public class TaskService {
     }
 
     @Transactional
-    public TaskEntity updateTask(Long id, TaskEntity updatedTask){
+    public void updateTask(Long id, TaskEntity updatedTask) {
         TaskEntity current = getTaskById(id);
         current.setTitulo(updatedTask.getTitulo());
         current.setDescripcion(updatedTask.getDescripcion());
 
-        if(updatedTask.getEstado() != null){
+        if (updatedTask.getEstado() != null) {
             TaskStatusEntity status = taskStatusRepository.findByDescripcion(updatedTask.getEstado().getDescripcion())
                     .orElseThrow(() -> new RuntimeException("Estado no válido"));
+            System.out.println("Estado recibido para update: " + (updatedTask.getEstado() != null ? updatedTask.getEstado().getDescripcion() : "null"));
             current.setEstado(status);
         }
 
-        return taskRepository.save(current);
-
+        taskRepository.save(current);
+        taskRepository.flush();
     }
 
     public void deleteTask(Long id){

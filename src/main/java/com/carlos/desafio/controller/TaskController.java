@@ -56,19 +56,23 @@ public class TaskController implements TareasApi {
         return ResponseEntity.noContent().build();
     }
 
-    private Task toModel(TaskEntity entity) {
-        Task model = new Task();
-        model.setId(entity.getId());
-        model.setTitulo(entity.getTitulo());
-        model.setDescripcion(entity.getDescripcion());
+    public Task toModel(TaskEntity entity) {
+        Task task = new Task();
+        task.setId(entity.getId());
+        task.setTitulo(entity.getTitulo());
+        task.setDescripcion(entity.getDescripcion());
 
-        if(entity.getEstado() != null){
-            TaskStatus status = new TaskStatus();
-            model.setDescripcion(entity.getDescripcion());
-            model.setEstado(status);
+        TaskStatus statusModel = new TaskStatus();
+        statusModel.setId(entity.getEstado().getId());
+        statusModel.setNombre(entity.getEstado().getDescripcion());
+        task.setEstado(statusModel);
+
+
+        if (entity.getUsuario() != null) {
+            task.setUserId(entity.getUsuario().getId());
         }
 
-        return model;
+        return task;
     }
 
     private TaskEntity toEntity(Task task) {
