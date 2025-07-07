@@ -1,0 +1,119 @@
+📌 API de Gestión de Tareas – NUEVO SPA
+Esta es una API RESTful construida con Spring Boot 3.4.x, Java 17 y autenticación JWT. La aplicación permite a los usuarios autenticados crear, leer, actualizar y eliminar tareas. Además, sigue principios SOLID, buenas prácticas de desarrollo, y fue generada en parte mediante el enfoque API First con OpenAPI.
+
+🔧 Tecnologías utilizadas
+Java 17
+
+Spring Boot 3.4.x
+
+Spring Security
+
+Spring Data JPA
+
+H2 Database (en memoria)
+
+JWT (JSON Web Token)
+
+Maven
+
+OpenAPI / Swagger
+
+Lombok
+
+▶️ Ejecución del proyecto
+
+1. Compilar el proyecto
+
+mvn clean install
+
+2. Ejecutar la aplicación
+
+mvn spring-boot:run
+
+La API estará disponible en:
+📍 http://localhost:8080
+
+📚 Documentación Swagger
+
+Una vez iniciado el servidor, accede a la documentación en:
+👉 http://localhost:8080/swagger-ui.html
+ó
+👉 http://localhost:8080/swagger-ui/index.html
+
+🔐 Autenticación JWT
+
+Endpoint de autenticación
+POST /auth/login
+
+Ejemplo JSON
+
+{
+  "username": "usuario1",
+  "password": "password123"
+}
+
+Si las credenciales son válidas, recibirás un JWT como este:
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR..."
+}
+
+¿Cómo usar el token en Swagger?
+Presiona el botón Authorize en la parte superior de Swagger UI.
+
+Introduce el token así:
+
+Bearer eyJhbGciOiJIUzI1NiIsInR...
+
+
+Ahora puedes hacer peticiones autenticadas a los endpoints protegidos.
+
+🗂️ Estructura de carpetas
+
+src/
+ └── main/
+     ├── java/
+     │   └── com.carlos.desafio/
+     │       ├── controller/
+     │       ├── service/
+     │       ├── repository/
+     │       ├── entity/
+     │       ├── config/
+     │       └── security/
+     └── resources/
+         ├── application.properties
+         └── openapi.yml
+🗄️ Datos precargados (DataLoader)
+
+La aplicación carga automáticamente al iniciar:
+
+Usuarios
+
+Usuario	Contraseña
+usuario1	password123
+usuario2	password321
+
+Estados de Tarea
+
+Pendiente
+En progreso
+Completada
+
+📦 Endpoints principales
+Método	Ruta	Descripción	Seguridad
+POST	/auth/login	Autenticación de usuario	❌
+GET	/tareas	Listar tareas	✅
+GET	/tareas/{id}	Obtener tarea por ID	✅
+POST	/tareas	Crear nueva tarea	✅
+PUT	/tareas/{id}	Actualizar tarea	✅
+DELETE	/tareas/{id}	Eliminar tarea	✅
+
+
+
+📩 Contacto
+Nombre: Carlos Correa
+
+Correo: carlos.correa.zapata@gmail.com
+
+Cargo al que postulo: Desarrollador Backend Java
+
